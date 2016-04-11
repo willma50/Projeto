@@ -15,27 +15,27 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 
-public class Principal extends JFrame{
+import domaim.VeiculoAppIF;
+import domaim.VeiculoGestor;
+
+
+public class Principal extends JFrame implements VeiculoUIIF, ActionListener{
 	
 	public Panel painel = new Panel();
 	JMenuBar barra; 
 	JMenu veiculo, sair;
 	JMenuItem cadastrar, consultar;
 	
+	private VeiculoAppIF app;
+	
 	public Principal(){
 		
 		super("Tela inicial");
-		montarTela();
-		
-		
-		
-		setSize(600,400);
-		setLocationRelativeTo(null);
-		setVisible(true);
+				
 		
 	}
 	
-	public void montarTela(){
+	public void montarTela() {
 		
 		Container tela = getContentPane();
 		//painel.setBackground(new Color(0,0,0)); //configurando cor de fundo para o painel
@@ -57,25 +57,59 @@ public class Principal extends JFrame{
 		veiculo.add(cadastrar);
 		veiculo.add(consultar);
 		
+		consultar.addActionListener(this);
 		
 		
 		//rever
-		consultar.addActionListener(new ActionListener(){
+		/*consultar.addActionListener(new ActionListener(){
 
 	          public void actionPerformed(ActionEvent e){
 
-	        	  ListarVeiculo listarVeiculo = new ListarVeiculo();
-	        	  listarVeiculo.setVisible(true);
+	        	  
+	        	  try {
+					listarVeiculo2.setDisplay();
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+					e1.printStackTrace();
+				}
+	        	  listarVeiculo2.setVisible(true);
 	        	  
 
 	          }
-	    });
+	    });*/
+		
+	}
+
+	@Override
+	public void setLogic(VeiculoAppIF app) {
+		this.app = app;
+		
+	}
+
+	@Override
+	public void setDisplay() throws Exception {
+		this.montarTela();
+		setSize(600,400);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == consultar){
+			System.out.println("entrou menu ");
+			//new CadastroUnidade(this.appU, null);
+			ListarVeiculo listarVeiculo2 = new ListarVeiculo();
+      	    listarVeiculo2.setLogic(app);
+      	   // listarVeiculo2.setDisplay();
+		}
 		
 	}
 	
 
-	public static void main (String args[]){
+	/*public static void main (String args[]){
 		Principal app = new Principal();
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	} 
+	} */
 }

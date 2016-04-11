@@ -25,8 +25,14 @@ public class VeiculoGestor implements VeiculoAppIF{
 
 	@Override
 	public Collection<Veiculo> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		this.VeiculoDao = new VeiculoDaoSql();
+		return this.VeiculoDao.findAll();
+	}
+
+	@Override
+	public void setPersistencia(VeiculoDaoIF veiculoDAO) {
+		this.VeiculoDao = veiculoDAO;
+		
 	}
 
 }

@@ -59,6 +59,7 @@ public class VeiculoDaoSql implements VeiculoDaoIF{
 		
 		while(rs.next()){
 			Veiculo veiculo = new Veiculo(rs.getString("DESCRICAO"), rs.getInt("CLASSE"), rs.getString("PLACA"), rs.getInt("ANOFABRICACAO"));
+			System.out.println(veiculo.getPlaca());
 			listVeiculo.add(veiculo);
 		}
 		rs.close();
